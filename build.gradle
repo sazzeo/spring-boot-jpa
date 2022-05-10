@@ -1,0 +1,99 @@
+buildscript {  //프로젝트의 의존성 관리를 위한 설정
+
+    //전역변수 선언
+    ext {
+        springBootVersion = '2.1.7.RELEASE'
+        queryDslVersion = '4.4.0'
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management' //스프링 부트의 의존성들을 관리해서 꼭 추가
+
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+
+//개발 필요한 의존성들을 선언함
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web')
+
+    //롬복관련
+    annotationProcessor ('org.projectlombok:lombok')
+    implementation ('org.projectlombok:lombok')
+    testAnnotationProcessor ('org.projectlombok:lombok')
+    testImplementation ('org.projectlombok:lombok')
+
+    //jpa관련
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('com.h2database:h2')
+    //queryDSL
+    implementation "com.querydsl:querydsl-core:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    annotationProcessor(
+            "javax.persistence:javax.persistence-api",
+            "javax.annotation:javax.annotation-api",
+            "com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
+
+    //mybatis 관련
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2")
+
+    //머스테치 관련
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
+
+    //리소스 새로고침 관련
+    implementation('org.springframework.boot:spring-boot-devtools')
+
+
+    //시큐리티 관련
+    implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
+
+    //세션 데이터 베이스 관련
+    implementation('org.springframework.session:spring-session-jdbc')
+
+    //postgreSQL추가
+    implementation(group: 'org.postgresql' , name:'postgresql')
+
+
+    //test와 junit관련
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation("org.junit.vintage:junit-vintage-engine") {
+        exclude group: "org.hamcrest", module: "hamcrest-core"
+    }
+    //스프링 시큐리티 test관련 이거없으면 test코드에서 에러남
+    testImplementation('org.springframework.security:spring-security-test')
+
+
+
+
+
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
