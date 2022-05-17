@@ -31,4 +31,13 @@ public class TestController {
         return "왜...";
     }
 
+    //어노테이션 작동 테스트
+    @GetMapping("/test3")
+    public String responseEntityTest3() {
+
+
+        return "왜...";
+    }
+
+
 }
