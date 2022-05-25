@@ -63,10 +63,14 @@ dependencies {
     //리소스 새로고침 관련
     implementation('org.springframework.boot:spring-boot-devtools')
 
-
-
     //postgreSQL추가
     implementation(group: 'org.postgresql' , name:'postgresql')
+
+
+    // 타임리프 220511 JSK
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation("org.thymeleaf.extras:thymeleaf-extras-java8time")
+
 
 
     //test와 junit관련
@@ -74,6 +78,7 @@ dependencies {
     testImplementation("org.junit.vintage:junit-vintage-engine") {
         exclude group: "org.hamcrest", module: "hamcrest-core"
     }
+
 
 
 
