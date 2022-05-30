@@ -1,8 +1,11 @@
 package com.jy.lim.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jy.lim.CustomResponseEntity;
 import com.jy.lim.dto.ListDto;
 import com.jy.lim.dto.TestDto;
+import com.jy.lim.dto.ValidDto;
+import com.jy.lim.service.TestService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.bridge.Message;
 import org.springframework.http.HttpHeaders;
@@ -19,10 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
 public class TestController {
+
+    private final TestService testService;
+    private final ObjectMapper mapper;
+
 
     @GetMapping("/test")
     public ResponseEntity responseEntityTest() {
@@ -43,6 +51,17 @@ public class TestController {
     public void testDto(@RequestBody @Validated ListDto listDto) {
 
         System.out.println(listDto);
+    }
+
+
+    @PostMapping("/test/valid")
+    public void testValid(@RequestBody Map<String, String> map) {
+
+        ValidDto validDto = mapper.convertValue(map , ValidDto.class);
+        testService.dtoTest(validDto);
+
+
+
     }
 
 

@@ -4,14 +4,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@ToString
+import javax.validation.constraints.NotNull;
+
 @NoArgsConstructor
 @Getter
-public class StudentDto {
+@ToString
+public class ValidDto {
 
-    private String studentName;
-    private int age;
-
-
+    @NotNull
+    private String name;
 
 }
