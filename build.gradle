@@ -30,7 +30,7 @@ configurations {
 //아래 프로젝트들 공통 설정 : subprojects
 subprojects {
 
-    group 'com.jy.study'
+    group 'com.example'
     version '1.0-SNAPSHOT'  //빌드시 jar 파일 이름에 들어가게 됨.
     //sourceCompatibility = "11"
 
@@ -38,10 +38,6 @@ subprojects {
         mavenCentral()
     }
 
-
-    ext {
-        set('springCloudVersion', "2021.0.3")  //2021.0.3 에서 변경
-    }
 
 
     apply plugin: 'java'
@@ -62,12 +58,20 @@ subprojects {
 
         //jpa관련
         implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-        implementation('com.h2database:h2')
+        runtimeOnly('com.h2database:h2')
 
         //postgreSQL추가
         implementation(group: 'org.postgresql' , name:'postgresql')
 
-        testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.0'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//        {
+//            exclude group: 'org.junit.vintage', modlue: 'junit-vintage-engine'
+//        }
+
+
+        //junit
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
 
     }
 
