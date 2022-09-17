@@ -1,4 +1,4 @@
-package com.jy.lim.common.annotation;
+package com.example.springbootstudy.common.annotation;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

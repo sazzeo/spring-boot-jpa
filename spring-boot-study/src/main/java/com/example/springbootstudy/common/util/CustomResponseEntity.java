@@ -1,12 +1,9 @@
-package com.jy.lim;
+package com.example.springbootstudy.common.util;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +30,9 @@ public class CustomResponseEntity {
     }
 
     public ResponseEntity<Map> ok(Object object, String message) {
-        Map<String, Object> map =Map.of("code" , 200000
-                , "dd" ,2);
+        Map<String, Object> map = new HashMap<>();
+                map.put("code" , 200000);
+                map.put("dd" ,2);
         this.success = 1;
         this.code = "200";
         this.message = message;

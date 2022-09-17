@@ -1,10 +1,9 @@
-package com.jy.lim.dto;
+package com.example.springbootstudy.dto;
 
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor
 @Getter

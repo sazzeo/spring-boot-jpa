@@ -1,4 +1,4 @@
-package com.jy.lim.common.annotation;
+package com.example.springbootstudy.common.annotation;
 
 
 import java.lang.annotation.ElementType;

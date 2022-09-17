@@ -1,4 +1,4 @@
-package com.jy.lim.controller;
+package com.example.springbootstudy.controller;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

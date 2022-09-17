@@ -1,4 +1,4 @@
-package com.jy.lim.dto;
+package com.example.springbootstudy.dto;
 
 
 import lombok.Getter;

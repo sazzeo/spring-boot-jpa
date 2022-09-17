@@ -1,89 +1,25 @@
-buildscript {  //프로젝트의 의존성 관리를 위한 설정
+plugins {
 
-    //전역변수 선언
-    ext {
-        springBootVersion = '2.1.7.RELEASE'
-        queryDslVersion = '4.4.0'
-    }
-
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+    id 'org.springframework.boot' version '2.7.3'
+    id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+    id 'java'
 
 }
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management' //스프링 부트의 의존성들을 관리해서 꼭 추가
-
-
-group 'org.example'
-version '1.0-SNAPSHOT'
-sourceCompatibility = 1.9
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 
-//개발 필요한 의존성들을 선언함
-dependencies {
-    implementation('org.springframework.boot:spring-boot-starter-web')
-
-    //롬복관련
-    annotationProcessor ('org.projectlombok:lombok')
-    implementation ('org.projectlombok:lombok')
-    testAnnotationProcessor ('org.projectlombok:lombok')
-    testImplementation ('org.projectlombok:lombok')
-
-    //jpa관련
-    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-    implementation('com.h2database:h2')
-    //queryDSL
-    implementation "com.querydsl:querydsl-core:${queryDslVersion}"
-    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-    annotationProcessor(
-            "javax.persistence:javax.persistence-api",
-            "javax.annotation:javax.annotation-api",
-            "com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
-
-    //mybatis 관련
-    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2")
-
-    //머스테치 관련
-    implementation('org.springframework.boot:spring-boot-starter-mustache')
-
-    //리소스 새로고침 관련
-    implementation('org.springframework.boot:spring-boot-devtools')
-
-    //postgreSQL추가
-    implementation(group: 'org.postgresql' , name:'postgresql')
-
-
-    // 타임리프 220511 JSK
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation("org.thymeleaf.extras:thymeleaf-extras-java8time")
-
-
-
-    //test와 junit관련
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation("org.junit.vintage:junit-vintage-engine") {
-        exclude group: "org.hamcrest", module: "hamcrest-core"
-    }
-
-
-
-
-
+test {
+    useJUnitPlatform()
 }
+
+//제일 상위 프로젝트에는 build 할 jar 파일이 없으므로 꺼주기
+bootJar {
+    enabled(false)
+}
+
 
 configurations {
     compileOnly {
@@ -91,7 +27,61 @@ configurations {
     }
 }
 
-test {
-    useJUnitPlatform()
+//아래 프로젝트들 공통 설정 : subprojects
+subprojects {
+
+    group 'com.jy.study'
+    version '1.0-SNAPSHOT'  //빌드시 jar 파일 이름에 들어가게 됨.
+    //sourceCompatibility = "11"
+
+    repositories {
+        mavenCentral()
+    }
+
+
+    ext {
+        set('springCloudVersion', "2021.0.3")  //2021.0.3 에서 변경
+    }
+
+
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: "io.spring.dependency-management"
+
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+        //롬복
+        annotationProcessor ('org.projectlombok:lombok')
+        implementation ('org.projectlombok:lombok')
+        testAnnotationProcessor ('org.projectlombok:lombok')
+        testImplementation ('org.projectlombok:lombok')
+
+        //jpa관련
+        implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+        implementation('com.h2database:h2')
+
+        //postgreSQL추가
+        implementation(group: 'org.postgresql' , name:'postgresql')
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.0'
+
+    }
+
+
+
+    test {
+        exclude('**/*')
+        useJUnitPlatform()
+    }
+
 }
-targetCompatibility = JavaVersion.VERSION_1_9
+
+
+
+
+
+

@@ -1,7 +1,7 @@
-package com.jy.lim.service;
+package com.example.springbootstudy.service;
 
-import com.jy.lim.common.annotation.AnnotationPractice;
-import com.jy.lim.dto.ValidDto;
+import com.example.springbootstudy.common.annotation.AnnotationPractice;
+import com.example.springbootstudy.dto.ValidDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +20,6 @@ public class TestService {
 
     @Transactional
     public void dtoTest(@Valid ValidDto validDto) {
-
         System.out.println(validDto);
     }
 
