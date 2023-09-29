@@ -1,17 +1,22 @@
 package com.example.jpastudy.base.domain.entity;
 
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="MEMBER")
 @Getter
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
+@ToString
 public class Member {
 
     @Id
-    @GeneratedValue
     private Long id;
 
     private String username;
