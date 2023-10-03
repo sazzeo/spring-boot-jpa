@@ -5,12 +5,13 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="MEMBER")
+@Table
 @Getter
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
 @ToString
+@Setter
 public class Member {
 
     @Id
