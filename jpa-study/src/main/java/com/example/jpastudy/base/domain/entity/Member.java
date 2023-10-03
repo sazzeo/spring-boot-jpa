@@ -7,7 +7,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "member")
-@Getter
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
@@ -38,6 +37,10 @@ public class Member {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
-    @Lob
     private String description;
+    @Lob
+    @Access(AccessType.PROPERTY)
+    public String getDescription() {
+        return description + "getter";
+    }
 }

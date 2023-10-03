@@ -41,4 +41,18 @@ public class EntityMappingTest {
         );
     }
 
+    @DisplayName("@Access getter 테스트")
+    @Test
+    void AccessGetterTest() {
+
+        Member member = Member.builder()
+                .username("지영")
+                .age(28)
+                .description("설명")
+                .build();
+
+        entityManager.persist(member);
+        transaction.commit();
+    }
+
 }
