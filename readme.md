@@ -5,10 +5,11 @@
 ## 프로젝트
 ### jpa-study
 - jpa
-- spring-boot-data
+- hibernate
+- spring data jpa
 
 ### spring-boot-study
-- spring과 spring-boot 관련 정리
+- spring 과 spring boot 관련 정리
 
 
 ## 공통 dependencies
