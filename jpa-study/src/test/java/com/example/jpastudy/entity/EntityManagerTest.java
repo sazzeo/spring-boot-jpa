@@ -38,12 +38,10 @@ class EntityManagerTest {
     @Test
     void useEntityManager() {
         Member member = Member.builder()
-                .id(3L)
                 .username("지영")
                 .build();
         entityManager.persist(member);
         transaction.commit();
-
     }
 
 
