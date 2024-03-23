@@ -1,13 +1,15 @@
 package com.example.jpastudy.entity;
 
 import com.example.jpastudy.base.domain.entity.Member;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-class EntityManagerTest {
+
+class PersistentTest {
 
     static EntityManagerFactory emf;
     EntityManager entityManager;
@@ -27,40 +29,24 @@ class EntityManagerTest {
         entityManager.close();
     }
 
-    @DisplayName("엔티티 저장해보기")
+    @DisplayName("엔티티 동일성 비교")
     @Test
     void useEntityManager() {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
         Member member = Member.builder()
-                .id(3L)
+                .id(1L)
                 .username("지영")
                 .build();
 
         entityManager.persist(member);
         Member member1 = entityManager.find(Member.class, 1L);
+        Member member2 = entityManager.find(Member.class, 1L);
 
-        transaction.commit(); //commit 하는 순간 저장 (flush)
-        System.out.println("member1 = " + member1);
+        Assertions.assertThat(member1 == member2).isTrue();
     }
 
-
-    @DisplayName("준영속 상태의 entity는 저장도 되지 않는다.")
-    @Test
-    void 준영속_test() {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        Member member = Member.builder()
-                .id(4L)
-                .username("지영")
-                .build();
-
-        entityManager.persist(member); // 아래코드로 인해 저장되지 않음.
-        entityManager.detach(member); //준영속 상태로 변경
-
-        transaction.commit();
-    }
 
 
 }
