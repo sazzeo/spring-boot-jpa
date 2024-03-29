@@ -12,15 +12,11 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @Setter
-@SequenceGenerator(
-        name = "member_seq_generator",
-        sequenceName = "seq_member",
-        allocationSize = 1
-)
+@Getter
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String username;
