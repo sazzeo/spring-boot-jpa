@@ -5,6 +5,8 @@ import org.junit.jupiter.api.*;
 
 import javax.persistence.*;
 
+import static org.assertj.core.api.Assertions.*;
+
 public class EntityMappingTest {
     static EntityManagerFactory emf;
 
@@ -53,6 +55,7 @@ public class EntityMappingTest {
 
         entityManager.persist(member);
         transaction.commit();
+        assertThat(member.getDescription()).isEqualTo("설명getter");
     }
 
 }

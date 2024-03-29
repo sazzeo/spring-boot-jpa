@@ -13,6 +13,7 @@ import java.util.Date;
 @ToString
 @Setter
 @Getter
+//@DynamicUpdate
 public class Member {
 
     @Id
@@ -39,4 +40,5 @@ public class Member {
     public String getDescription() {
         return description + "getter";
     }
+
 }
