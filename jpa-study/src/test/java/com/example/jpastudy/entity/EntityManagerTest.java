@@ -135,5 +135,68 @@ class EntityManagerTest {
 
     }
 
+    @Test
+    void 준영속_상태는_쿼리가_날아가지_않지만_식별자는_가지고_있다() {
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+        Member member = Member.builder()
+                .username("지영")
+                .build();
+
+        entityManager.persist(member);
+        entityManager.detach(member);
+
+        Assertions.assertThat(member.getId()).isNotNull();
+        transaction.commit();
+    }
+
+    @Test
+    void 엔티티매니저를_close_하면_더이상_기능을_쓸_수_없다() {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+        em.close();
+        Member member = Member.builder()
+                .username("지영")
+                .build();
+
+        assertThrows(IllegalStateException.class,
+                () -> em.persist(member)
+        );
+    }
+
+    @Test
+    void 비영속_상태에서_merge하면_영속상태가_된다() {
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+        Member member = Member.builder()
+                .username("지영")
+                .build();
+
+        entityManager.merge(member);
+
+        transaction.commit();
+    }
+
+    @Test
+    void 준영속_상태에서_merge하면_영속상태가_된다() {
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+        Member member = Member.builder()
+                .username("지영")
+                .build();
+
+        entityManager.persist(member);
+        transaction.commit();
+        entityManager.clear();
+
+        //쿼리 다시 날림
+        entityManager2.merge(member);
+
+    }
 
 }
