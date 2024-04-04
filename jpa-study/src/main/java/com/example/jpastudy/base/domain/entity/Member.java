@@ -35,6 +35,11 @@ public class Member {
     private Date lastModifiedDate;
 
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name="teamId")
+    private Team team;
+
     @Lob
     @Access(AccessType.PROPERTY)
     public String getDescription() {

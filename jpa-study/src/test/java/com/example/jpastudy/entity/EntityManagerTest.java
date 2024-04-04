@@ -170,8 +170,8 @@ class EntityManagerTest {
     @Test
     void 비영속_상태에서_merge하면_영속상태가_된다() {
         EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
+
         Member member = Member.builder()
                 .username("지영")
                 .build();
