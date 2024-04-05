@@ -36,8 +36,8 @@ public class Member {
 
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name="teamId")
+    @OneToOne
+    @JoinColumn(name = "teamId") //fk 키가 member에게 존재함
     private Team team;
 
     @Lob

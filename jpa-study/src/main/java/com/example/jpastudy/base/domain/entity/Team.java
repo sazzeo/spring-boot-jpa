@@ -22,8 +22,7 @@ public class Team {
 
     private String name;
 
-    @OneToMany(mappedBy = "team")
-    @Builder.Default
-    private List<Member> members = new ArrayList<>();
+    @OneToOne(mappedBy = "team")
+    private Member member;
 
 }
