@@ -34,16 +34,8 @@ public class Member {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
-    private String description;
-
     @ManyToOne
-    @JoinColumn(name="teamId")
+    @JoinColumn(name = "team_id", insertable = false, updatable = false)
     private Team team;
-
-    @Lob
-    @Access(AccessType.PROPERTY)
-    public String getDescription() {
-        return description + "getter";
-    }
 
 }

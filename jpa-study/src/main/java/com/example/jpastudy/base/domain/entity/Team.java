@@ -22,8 +22,13 @@ public class Team {
 
     private String name;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany
+    @JoinColumn(name = "teamId")
     @Builder.Default
     private List<Member> members = new ArrayList<>();
+
+    public void addMember(Member member) {
+        members.add(member);
+    }
 
 }
