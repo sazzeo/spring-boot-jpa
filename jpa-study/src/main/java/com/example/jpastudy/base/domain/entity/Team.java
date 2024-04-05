@@ -3,6 +3,8 @@ package com.example.jpastudy.base.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "team")
 @AllArgsConstructor
@@ -19,5 +21,9 @@ public class Team {
     private Long teamId;
 
     private String name;
+
+    @OneToMany(mappedBy = "team")
+    @Builder.Default
+    private List<Member> members = new ArrayList<>();
 
 }
