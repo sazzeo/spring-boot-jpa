@@ -3,7 +3,9 @@ package com.example.jpastudy.base.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "member")
@@ -18,7 +20,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long memberId;
 
     private String username;
 
@@ -36,14 +38,13 @@ public class Member {
 
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name="teamId")
-    private Team team;
+    @ManyToMany
+    @JoinTable(name = "memberTeam", joinColumns = @JoinColumn(name = "memberId"), inverseJoinColumns = @JoinColumn(name = "teamId"))
+    @Builder.Default
+    private List<Team> teams = new ArrayList<>();
 
-    @Lob
-    @Access(AccessType.PROPERTY)
-    public String getDescription() {
-        return description + "getter";
+    public void addTeam(Team team) {
+        this.teams.add(team);
     }
 
 }
