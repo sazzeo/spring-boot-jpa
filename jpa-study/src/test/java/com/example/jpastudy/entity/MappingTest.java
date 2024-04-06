@@ -3,6 +3,7 @@ package com.example.jpastudy.entity;
 import com.example.jpastudy.base.domain.entity.Member;
 import com.example.jpastudy.base.domain.entity.Team;
 import org.assertj.core.api.Assertions;
+import org.hibernate.loader.entity.CacheEntityLoaderHelper;
 import org.junit.jupiter.api.*;
 
 import javax.persistence.EntityManager;
@@ -111,6 +112,31 @@ public class MappingTest {
 
         Member findedMember = entityManager2.find(Member.class, member.getId());
         Assertions.assertThat(findedMember.getTeam()).isNull();
+    }
+
+    @Test
+    void 커밋후_일차캐시_삭제_테스트() {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        //given
+        Team team1 = Team.builder()
+                .name("팀1")
+                .build();
+        Member member = Member.builder()
+                .username("지영")
+                .build();
+
+        //when
+        entityManager.persist(team1);
+        member.setTeam(team1);
+        entityManager.persist(member);
+        entityManager.flush();
+        transaction.commit();
+
+        Member findedMember = entityManager.find(Member.class, member.getId());
+        System.out.println(findedMember);
+
     }
 
 }
