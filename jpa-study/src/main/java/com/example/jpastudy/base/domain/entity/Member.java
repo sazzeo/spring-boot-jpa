@@ -38,13 +38,13 @@ public class Member {
 
     private String description;
 
-    @ManyToMany
-    @JoinTable(name = "memberTeam", joinColumns = @JoinColumn(name = "memberId"), inverseJoinColumns = @JoinColumn(name = "teamId"))
-    @Builder.Default
-    private List<Team> teams = new ArrayList<>();
 
-    public void addTeam(Team team) {
-        this.teams.add(team);
-    }
+//    @ManyToMany
+//    @Builder.Default
+//    private List<Team> teams = new ArrayList<>();
+
+//    public void addTeam(Team team) {
+//        this.teams.add(team);
+//    }
 
 }

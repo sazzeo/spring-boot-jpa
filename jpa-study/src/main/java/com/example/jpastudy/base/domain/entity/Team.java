@@ -21,9 +21,9 @@ public class Team {
     private Long teamId;
 
     private String name;
-
-    @ManyToMany(mappedBy = "teams")
-    @Builder.Default
-    private List<Member> members = new ArrayList<>();
+//
+//    @ManyToMany(mappedBy = "teams")
+//    @Builder.Default
+//    private List<Member> members = new ArrayList<>();
 
 }

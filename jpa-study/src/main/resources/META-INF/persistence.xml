@@ -5,6 +5,7 @@
     <persistence-unit name="jpaBook">
         <class>com.example.jpastudy.base.domain.entity.Member</class>
         <class>com.example.jpastudy.base.domain.entity.Team</class>
+        <class>com.example.jpastudy.base.domain.entity.MemberTeam</class>
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
