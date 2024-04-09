@@ -3,7 +3,6 @@ package com.example.jpastudy.entity;
 import com.example.jpastudy.base.domain.entity.Member;
 import com.example.jpastudy.base.domain.entity.Team;
 import org.assertj.core.api.Assertions;
-import org.hibernate.loader.entity.CacheEntityLoaderHelper;
 import org.junit.jupiter.api.*;
 
 import javax.persistence.EntityManager;
@@ -87,7 +86,7 @@ public class MappingTest {
         transaction.commit();
 
         Member findedMember = entityManager2.find(Member.class, member.getId());
-        Assertions.assertThat(findedMember.getTeam().getName()).isEqualTo("팀2");
+        assertThat(findedMember.getTeam().getName()).isEqualTo("팀2");
     }
 
     @Test
@@ -111,7 +110,74 @@ public class MappingTest {
         transaction.commit();
 
         Member findedMember = entityManager2.find(Member.class, member.getId());
-        Assertions.assertThat(findedMember.getTeam()).isNull();
+        assertThat(findedMember.getTeam()).isNull();
+    }
+
+    @Test
+    void 양방향_연관관계를_저장한다() {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        //팀1 저장
+        Team team1 = Team.builder()
+                .name("팀1")
+                .build();
+        entityManager.persist(team1);
+
+        //멤버 1 저장
+        Member member1 = Member.builder()
+                .username("지영")
+                .build();
+        member1.setTeam(team1);
+        entityManager.persist(member1);
+
+        Member member2 = Member.builder()
+                .username("수영")
+                .build();
+        member2.setTeam(team1);
+        entityManager.persist(member2);
+
+        transaction.commit();
+    }
+
+    @Test
+    void 주인이_아닌쪽은_연관관계를_설정하지_못한다() {
+
+        transactional(entityManager, () -> {
+            //멤버 1 저장
+            Member member1 = Member.builder()
+                    .username("지영")
+                    .build();
+            entityManager.persist(member1);
+
+            Member member2 = Member.builder()
+                    .username("수영")
+                    .build();
+            entityManager.persist(member2);
+
+            //팀1 저장
+            Team team1 = Team.builder()
+                    .name("팀1")
+                    .build();
+            team1.getMembers().add(member1);
+            team1.getMembers().add(member2);
+            entityManager.persist(team1);
+            entityManager.flush();
+            entityManager.clear();
+
+            Member member = entityManager.find(Member.class, member1.getId());
+            assertThat(member.getTeam()).isNull();
+        });
+
+    }
+
+    void transactional(EntityManager entityManager, Runnable runnable) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        runnable.run();
+
+        transaction.commit();
     }
 
     @Test
