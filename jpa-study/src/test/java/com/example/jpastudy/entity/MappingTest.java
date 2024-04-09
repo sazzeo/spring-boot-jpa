@@ -131,11 +131,14 @@ public class MappingTest {
         entityManager.persist(team1);
         member.setTeam(team1);
         entityManager.persist(member);
-        entityManager.flush();
         transaction.commit();
+
+        EntityTransaction transaction1 = entityManager.getTransaction();
+        transaction1.begin();
 
         Member findedMember = entityManager.find(Member.class, member.getId());
         System.out.println(findedMember);
+        transaction1.commit();
 
     }
 
