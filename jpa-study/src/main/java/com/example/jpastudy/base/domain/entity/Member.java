@@ -10,7 +10,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-@ToString
 @Setter
 @Getter
 //@DynamicUpdate
@@ -36,8 +35,8 @@ public class Member {
 
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name="teamId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "teamId", nullable = false)
     private Team team;
 
     @Lob
