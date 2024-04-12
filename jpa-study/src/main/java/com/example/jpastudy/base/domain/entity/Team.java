@@ -22,7 +22,7 @@ public class Team {
 
     private String name;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST , CascadeType.REMOVE})
     @JoinColumn(name = "teamId")
     @Builder.Default
     private List<Member> members = new ArrayList<>();
