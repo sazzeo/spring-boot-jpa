@@ -21,4 +21,11 @@ public class Employee {
     @Embedded
     private Period workPeriod;
 
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "startDate", column = @Column(name = "startDate2")),
+            @AttributeOverride(name = "endDate", column = @Column(name = "endDate2")
+            )})
+    private Period workPeriod2;
+
 }

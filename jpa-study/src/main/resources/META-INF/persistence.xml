@@ -5,6 +5,7 @@
     <persistence-unit name="jpaBook">
         <class>com.example.jpastudy.base.domain.entity.Member</class>
         <class>com.example.jpastudy.base.domain.entity.Team</class>
+        <class>com.example.jpastudy.base.domain.entity.Employee</class>
         <class>com.example.jpastudy.inheritance.join.Item</class>
         <class>com.example.jpastudy.inheritance.join.Album</class>
         <properties>
