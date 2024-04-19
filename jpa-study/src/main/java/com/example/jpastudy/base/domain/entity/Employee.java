@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
+
+//값타입 테스트를 위한 객체
 
 @Entity
 @NoArgsConstructor
@@ -27,5 +30,8 @@ public class Employee {
             @AttributeOverride(name = "endDate", column = @Column(name = "endDate2")
             )})
     private Period workPeriod2;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    private List<Period> periods;
 
 }
